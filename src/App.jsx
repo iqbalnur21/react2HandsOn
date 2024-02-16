@@ -1,35 +1,43 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import Button from "./component/Button";
+import PersonalInfo from "./component/PersonalInfo";
+import Sidebar from "./component/Sidebar";
+import Card from "./component/Card";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
+  const [age, setAge] = useState(23);
+  const [showSidebar, setShowSidebar] = useState(false);
+  const [data, setData] = useState([
+    {
+      title: "title One",
+      description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+    },
+    {
+      title: "title Two",
+      description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+    },
+    {
+      title: "title Three",
+      description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+    },
+    {
+      title: "title Four",
+      description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+    }
+  ]);
+  const handlerSidebar = () => {
+    setShowSidebar(!showSidebar);
+  };
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div>
+      <Button handlerSidebar={handlerSidebar} />
+      {showSidebar && <Sidebar />}
+      <PersonalInfo age={age} showSidebar={showSidebar} />
+      {data.map((item) => (
+        <Card title={item.title} description={item.description} setData={setData}/>
+      ))}
+    </div>
+  );
+};
 
-export default App
+export default App;
